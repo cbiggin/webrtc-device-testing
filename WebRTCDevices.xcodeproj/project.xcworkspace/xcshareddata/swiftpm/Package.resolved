@@ -1,0 +1,15 @@
+{
+  "originHash" : "4f64f72712707dc94624ac1fc143e270cf7ca08e4f7c8be3c2407714dc3b9a27",
+  "pins" : [
+    {
+      "identity" : "ios-framework-webrtc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lazarentertainment/ios-framework-webrtc",
+      "state" : {
+        "revision" : "30f735141e9bcf790a81636feddfbdd48363d67d",
+        "version" : "1.5.0"
+      }
+    }
+  ],
+  "version" : 3
+}

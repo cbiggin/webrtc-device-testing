@@ -6,14 +6,17 @@
 //  Copyright © 2021 WhiteNile Systems Inc. All rights reserved.
 //
 
+import S10TJ
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+		setupAppLogging()
+		setupTJLogging()
+
 		// Override point for customization after application launch.
 		return true
 	}
@@ -32,6 +35,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 	}
 
+	func setupAppLogging() {
+		let categories: [AppLoggingCategory] = [
+			.hardware,
+			.avaudio,
+			.rtcaudio,
+			.tjaudio
+		]
 
+		AppLogging.setLoggingCategories(categories)
+//		AppLogging.archiveEnable()
+//		AppLogging.disable()
+		AppLogging.enable()
+	}
+
+	func setupTJLogging() {
+		let categories: [TJLoggingCategory] = [
+//			.source,
+//			.canvas,
+//			.sourceCapture,
+//			.output,
+//			.audioSession,
+//			.audioSessionNotifications
+		]
+		TJLogging.setLoggingCategories(categories)
+//		TJLogging.archiveEnable()
+//		TJLogging.disable()
+		TJLogging.enable()
+	}
 }
 

@@ -10,6 +10,7 @@
 import AVFoundation
 import Foundation
 
+/*
 extension AVAudioSession.RouteChangeReason: CustomStringConvertible {
 
 	public var description: String {
@@ -37,7 +38,7 @@ extension AVAudioSession.InterruptionType: CustomStringConvertible {
 		}
 	}
 }
-
+*/
 extension AVAudioSession.Category: CustomStringConvertible {
 
 	public var description: String {

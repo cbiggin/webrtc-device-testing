@@ -28,7 +28,7 @@ public class AVHardware: HardwareSession {
 	public var availableInputs = [String: AVHardwareDevice]()
 	public var currentInputs = [String: AVHardwareDevice]()
 	public var currentOutputs = [String: AVHardwareDevice]()
-	public fileprivate(set) var logger = Logger()
+	public fileprivate(set) var logger = AppLogging(category: .avaudio)
 
 	public init(category: AVAudioSession.Category = .playAndRecord,
 				options: AVAudioSession.CategoryOptions = .defaultToSpeaker,
@@ -133,7 +133,8 @@ extension AVHardware {
 		centre.removeObserver(self)
 
 		let accessoryManager = EAAccessoryManager.shared()
-		accessoryManager.unregisterForLocalNotifications()	}
+		accessoryManager.unregisterForLocalNotifications()
+	}
 
 	@objc
 	func handleInterruption(notification: Notification) {

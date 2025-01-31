@@ -10,10 +10,12 @@ import AVFoundation
 import Combine
 import UIKit
 
-class ViewController: UIViewController {
+class SessionVC: UIViewController {
 
 	@IBOutlet weak var avInitializeButton: UIButton?
-	@IBOutlet weak var rtcInitializeButton: UIButton?
+	@IBOutlet weak var tjInitializeButton: UIButton?
+	@IBOutlet weak var rtcInitializeWithNotificationsButton: UIButton?
+	@IBOutlet weak var rtcInitializeWithoutNotificationsButton: UIButton?
 	@IBOutlet weak var debuggerDumpButton: UIButton?
 	@IBOutlet weak var sessionResetButton: UIButton?
 
@@ -28,13 +30,14 @@ class ViewController: UIViewController {
 	@IBOutlet weak var errorLabel: UILabel?
 
 	// MARK: statics
-	private let recordingFileName = "temp.m4A"
+	private let recordingFileName = "temp.m4a"
 
 	// MARK: private variables
 	private var subscriptions = [AnyCancellable]()
 
 	private var rtcSession: RTCHardware? = nil
 	private var avSession: AVHardware? = nil
+	private var tjSession: TJHardware? = nil
 	private var currentSession: HardwareSession? = nil
 
 	private var recordingSession: AVAudioRecorder? = nil
@@ -51,20 +54,38 @@ class ViewController: UIViewController {
 		redoControls()
 	}
 
-	@IBAction func toggleRTCInitialize() {
-		guard rtcSession == nil else { return }
-
-		rtcSession = RTCHardware()
-		currentSession = rtcSession
-		setupSubscriptions()
-		redoControls()
-	}
-
 	@IBAction func toggleAVInitialize() {
 		guard avSession == nil else { return }
 
 		avSession = AVHardware()
 		currentSession = avSession
+		setupSubscriptions()
+		redoControls()
+	}
+
+	@IBAction func toggleRTCInitializeWithAVAudioNotifications() {
+		guard rtcSession == nil else { return }
+
+		rtcSession = RTCHardware(notifications: true)
+		currentSession = rtcSession
+		setupSubscriptions()
+		redoControls()
+	}
+
+	@IBAction func toggleRTCInitializeWithoutAVAudioNotifications() {
+		guard rtcSession == nil else { return }
+
+		rtcSession = RTCHardware(notifications: false)
+		currentSession = rtcSession
+		setupSubscriptions()
+		redoControls()
+	}
+
+	@IBAction func toggleTJInitialize() {
+		guard tjSession == nil else { return }
+
+		tjSession = TJHardware(notifications: false, subscriptions: true)
+		currentSession = tjSession
 		setupSubscriptions()
 		redoControls()
 	}
@@ -114,7 +135,7 @@ class ViewController: UIViewController {
 			session.prepareToPlay()
 			session.play()
 			startPlayingTimer()
-	}
+		}
 
 		redoControls()
 	}
@@ -201,8 +222,10 @@ class ViewController: UIViewController {
 
 	fileprivate func redoControls() {
 
-		rtcInitializeButton?.applyButton( currentSession == nil )
 		avInitializeButton?.applyButton( currentSession == nil )
+		tjInitializeButton?.applyButton( currentSession == nil )
+		rtcInitializeWithNotificationsButton?.applyButton( currentSession == nil )
+		rtcInitializeWithoutNotificationsButton?.applyButton( currentSession == nil )
 		sessionResetButton?.applyButton( currentSession != nil )
 		debuggerDumpButton?.applyButton( currentSession != nil )
 
@@ -300,7 +323,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: Timer
-extension ViewController {
+extension SessionVC {
 	func startRecordingTimer() {
 		guard recordingTimer == nil else { return }
 		guard let session = recordingSession else { return }
@@ -339,7 +362,7 @@ extension ViewController {
 }
 
 // MARK: - AVAudioRecorderDelegate
-extension ViewController: AVAudioRecorderDelegate {
+extension SessionVC: AVAudioRecorderDelegate {
 
 	func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
 		let str = "AVAudioRecorderDelegate.audioRecorderEncodeErrorDidOccur() ERROR: \(String(describing: error))"
@@ -357,7 +380,7 @@ extension ViewController: AVAudioRecorderDelegate {
 }
 
 // MARK: - AVAudioPlayerDelegate
-extension ViewController: AVAudioPlayerDelegate {
+extension SessionVC: AVAudioPlayerDelegate {
 
 	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
 		let str = "AVAudioPlayerDelegate.audioPlayerDecodeErrorDidOccur() ERROR: \(String(describing: error))"

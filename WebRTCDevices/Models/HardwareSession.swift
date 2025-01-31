@@ -22,7 +22,7 @@ public protocol HardwareSession: AnyObject {
 	var currentInputs: [String: AVHardwareDevice] { get set }
 	var currentOutputs: [String: AVHardwareDevice] { get set }
 
-	var logger: Logger { get }
+	var logger: AppLogging { get }
 
 	func dump()
 }
@@ -92,16 +92,18 @@ public extension HardwareSession {
 			speakersChanged.send(true)
 		}
 	}
+
 	func dump() {
 
-		let captureDevices = AVCaptureDevice.devices()
+
+		let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone], mediaType: .audio, position: .unspecified)
 		let accessories = EAAccessoryManager.shared().connectedAccessories
 
 		logger.log("HardwareSession.dump ------------------- SUMMARY -------------------")
 		logger.log("HardwareSession.dump CURRENT INPUTS #\(self.currentInputs.count)")
 		logger.log("HardwareSession.dump CURRENT OUTPUTS #\(self.currentOutputs.count)")
 		logger.log("HardwareSession.dump AVAILABLE INPUTS #\(self.availableInputs.count)")
-		logger.log("HardwareSession.dump CAPTURE DEVICES #\(captureDevices.count)")
+		logger.log("HardwareSession.dump CAPTURE DEVICES #\(session.devices.count)")
 		logger.log("HardwareSession.dump ACCESSORIES #\(accessories.count)")
 
 		logger.log("HardwareSession.dump ------------------- INPUTS --------------------")
@@ -120,7 +122,7 @@ public extension HardwareSession {
 		}
 
 		logger.log("HardwareSession.dump ------------------- DEVICES -------------------")
-		for (index, device) in captureDevices.enumerated() {
+		for (index, device) in session.devices.enumerated() {
 			logger.log("HardwareSession.dump DEVICE \(index): \(device.description)")
 		}
 

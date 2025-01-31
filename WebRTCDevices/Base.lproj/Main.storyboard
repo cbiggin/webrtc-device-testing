@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Fa-2H-6wM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Hardware-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WebRTCDevices" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SessionVC" customModule="WebRTCDevices" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="CEx-0R-SCF" userLabel="Session">
-                                <rect key="frame" x="127" y="64" width="160" height="166"/>
+                                <rect key="frame" x="82" y="68" width="250" height="254"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="91y-7Y-Dgd" userLabel="AV">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="166"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="254"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puo-N9-18V">
-                                                <rect key="frame" x="0.0" y="0.0" width="160" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="34"/>
                                                 <state key="normal" title="AV Initialize">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -31,17 +32,35 @@
                                                     <action selector="toggleAVInitialize" destination="BYZ-38-t0r" eventType="touchUpInside" id="hpJ-Gy-BH4"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfd-gY-8GF">
-                                                <rect key="frame" x="0.0" y="44" width="160" height="34"/>
-                                                <state key="normal" title="WebRTC Initialize">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQJ-cU-eil" userLabel="TJ Initialize">
+                                                <rect key="frame" x="0.0" y="44" width="250" height="34"/>
+                                                <state key="normal" title="TJ Initialize">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="toggleRTCInitialize" destination="BYZ-38-t0r" eventType="touchUpInside" id="HmJ-z6-985"/>
+                                                    <action selector="toggleTJInitialize" destination="BYZ-38-t0r" eventType="touchUpInside" id="pNH-2r-vfD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfd-gY-8GF" userLabel="WebRTC Init - notifications">
+                                                <rect key="frame" x="0.0" y="88" width="250" height="34"/>
+                                                <state key="normal" title="WebRTC Init (Notifications)">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleRTCInitializeWithAVAudioNotifications" destination="BYZ-38-t0r" eventType="touchUpInside" id="dZi-O8-nbJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Npo-jj-e4H" userLabel="WebRTC Init - no notifications">
+                                                <rect key="frame" x="0.0" y="132" width="250" height="34"/>
+                                                <state key="normal" title="WebRTC Init (none)">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleRTCInitializeWithoutAVAudioNotifications" destination="BYZ-38-t0r" eventType="touchUpInside" id="vFj-13-mJh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-Sx-Z92">
-                                                <rect key="frame" x="0.0" y="88" width="160" height="34"/>
+                                                <rect key="frame" x="0.0" y="176" width="250" height="34"/>
                                                 <state key="normal" title="Reset Sessions">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -50,7 +69,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YBh-3Q-jrZ">
-                                                <rect key="frame" x="0.0" y="132" width="160" height="34"/>
+                                                <rect key="frame" x="0.0" y="220" width="250" height="34"/>
                                                 <state key="normal" title="Debug Dump">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -60,13 +79,13 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="OFy-cm-6xh"/>
+                                            <constraint firstAttribute="width" constant="250" id="OFy-cm-6xh"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4ug-FU-Eme" userLabel="Record Stack">
-                                <rect key="frame" x="93" y="260" width="228" height="50"/>
+                                <rect key="frame" x="93" y="352" width="228" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESt-To-8Mu">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -92,7 +111,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="K4i-0n-EAH" userLabel="Play Stack">
-                                <rect key="frame" x="93" y="320" width="228" height="50"/>
+                                <rect key="frame" x="93" y="412" width="228" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9b-NV-4Na">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -118,7 +137,7 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nhN-Lb-O0h">
-                                <rect key="frame" x="10" y="400" width="394" height="32"/>
+                                <rect key="frame" x="10" y="492" width="394" height="32"/>
                                 <segments>
                                     <segment title="Microphones"/>
                                     <segment title="Speakers"/>
@@ -130,12 +149,12 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7KL-zP-BVa">
-                                <rect key="frame" x="10" y="436" width="394" height="0.0"/>
+                                <rect key="frame" x="10" y="528" width="394" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="73e-q6-UIC">
-                                <rect key="frame" x="10" y="857" width="394" height="0.0"/>
+                                <rect key="frame" x="10" y="808" width="394" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -161,6 +180,7 @@
                             <constraint firstItem="4ug-FU-Eme" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wUB-AS-F5x"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Hardware" image="headphones" catalog="system" id="urr-Pa-ubD"/>
                     <connections>
                         <outlet property="avInitializeButton" destination="Puo-N9-18V" id="2kM-Xq-fOq"/>
                         <outlet property="debuggerDumpButton" destination="YBh-3Q-jrZ" id="ka5-Gy-D5E"/>
@@ -171,16 +191,99 @@
                         <outlet property="playingTimeLabel" destination="qtr-Wv-dNW" id="FhR-hb-0Pw"/>
                         <outlet property="recordButton" destination="ESt-To-8Mu" id="the-E3-oed"/>
                         <outlet property="recordingTimeLabel" destination="fwa-Pd-LN9" id="1EY-jw-kWr"/>
-                        <outlet property="rtcInitializeButton" destination="wfd-gY-8GF" id="pBJ-8y-M7y"/>
+                        <outlet property="rtcInitializeWithNotificationsButton" destination="wfd-gY-8GF" id="KNL-AA-3sU"/>
+                        <outlet property="rtcInitializeWithoutNotificationsButton" destination="Npo-jj-e4H" id="bbB-Bp-NWe"/>
                         <outlet property="sessionResetButton" destination="aIc-Sx-Z92" id="0kZ-gW-6z2"/>
+                        <outlet property="tjInitializeButton" destination="TQJ-cU-eil" id="YnT-3i-Fqw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
+        <!--Console-->
+        <scene sceneID="eli-Z0-Fzw">
+            <objects>
+                <viewController id="VfE-Lw-0jW" customClass="ConsoleVC" customModule="WebRTCDevices" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OP3-0l-kpp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1Y-A2-VFu">
+                                <rect key="frame" x="20" y="99" width="374" height="641"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w23-JL-Ohr">
+                                <rect key="frame" x="165.5" y="760" width="83" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Refresh"/>
+                                <connections>
+                                    <action selector="toggleRefresh" destination="VfE-Lw-0jW" eventType="touchUpInside" id="pQg-qO-S9t"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="52L-Kf-YTY">
+                                <rect key="frame" x="117.5" y="58" width="179" height="32"/>
+                                <segments>
+                                    <segment title="Application"/>
+                                    <segment title="TJ"/>
+                                </segments>
+                                <connections>
+                                    <action selector="toggleConsoleSelection" destination="VfE-Lw-0jW" eventType="valueChanged" id="s3Z-HM-Ywq"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="I1Q-fS-xtV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="X1Y-A2-VFu" secondAttribute="trailing" constant="20" id="4kG-aB-ZvB"/>
+                            <constraint firstItem="X1Y-A2-VFu" firstAttribute="leading" secondItem="I1Q-fS-xtV" secondAttribute="leading" constant="20" id="Jhx-Lb-oQD"/>
+                            <constraint firstItem="52L-Kf-YTY" firstAttribute="centerX" secondItem="OP3-0l-kpp" secondAttribute="centerX" id="ScH-VX-bP4"/>
+                            <constraint firstItem="52L-Kf-YTY" firstAttribute="top" secondItem="I1Q-fS-xtV" secondAttribute="top" constant="10" id="XhX-Te-SeK"/>
+                            <constraint firstItem="w23-JL-Ohr" firstAttribute="centerX" secondItem="OP3-0l-kpp" secondAttribute="centerX" id="dTZ-FU-rjJ"/>
+                            <constraint firstItem="I1Q-fS-xtV" firstAttribute="bottom" secondItem="w23-JL-Ohr" secondAttribute="bottom" constant="18" id="hlv-va-Tz0"/>
+                            <constraint firstItem="w23-JL-Ohr" firstAttribute="top" secondItem="X1Y-A2-VFu" secondAttribute="bottom" constant="20" id="knH-Xi-ouA"/>
+                            <constraint firstItem="X1Y-A2-VFu" firstAttribute="top" secondItem="52L-Kf-YTY" secondAttribute="bottom" constant="10" id="qfh-tJ-pYg"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Console" image="printer.fill" catalog="system" id="hVS-7N-Wyy"/>
+                    <connections>
+                        <outlet property="consoleSelection" destination="52L-Kf-YTY" id="K9T-NT-cog"/>
+                        <outlet property="messages" destination="X1Y-A2-VFu" id="a4h-gn-atM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UFN-Z5-HIk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="373.91304347826087" y="979.6875"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="rh5-Ux-NDb">
+            <objects>
+                <tabBarController id="7Fa-2H-6wM" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EDX-ga-BGB">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Ixi-Cn-xVU"/>
+                        <segue destination="VfE-Lw-0jW" kind="relationship" relationship="viewControllers" id="pLb-Ls-YEM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xua-VR-Ptt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-855" y="463"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="headphones" catalog="system" width="128" height="121"/>
+        <image name="printer.fill" catalog="system" width="128" height="118"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

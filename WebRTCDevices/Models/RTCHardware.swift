@@ -31,12 +31,14 @@ public class RTCHardware: NSObject, HardwareSession {
 	// MARK: protocol HardwareSession { get }
 	public fileprivate(set) var microphonesChanged = PassthroughSubject<Bool, Never>()
 	public fileprivate(set) var speakersChanged = PassthroughSubject<Bool, Never>()
-	public fileprivate(set) var logger = Logger()
+	public fileprivate(set) var logger = AppLogging(category: .rtcaudio)
 
 	public init(category: AVAudioSession.Category = .record,
 				options: AVAudioSession.CategoryOptions = .defaultToSpeaker,
 				mode: AVAudioSession.Mode = .default,
-				portOverride: AVAudioSession.PortOverride = .none
+				portOverride: AVAudioSession.PortOverride = .none,
+				notifications: Bool = true,
+				accessories: Bool = true
 	) {
 		super.init()
 		logger.log("RTCHardware.init()")
@@ -57,7 +59,12 @@ public class RTCHardware: NSObject, HardwareSession {
 
 		// add bluetooth to our options
 		self.configureAudioSession()
-		self.setupNotifications()
+		if notifications {
+			self.setupNotifications()
+		}
+		if accessories {
+			self.setupAccessories()
+		}
 		self.parseCurrentDevices()
 		self.dump()
 	}
@@ -65,6 +72,7 @@ public class RTCHardware: NSObject, HardwareSession {
 	deinit {
 		logger.log("RTCHardware.deinit")
 		terminateNotifications()
+		terminateAccessories()
 	}
 
 	public func makeCurrentInput(device: AVHardwareDevice) {
@@ -109,8 +117,8 @@ extension RTCHardware {
 			try session.setActive(false)
 
 			session.lockForConfiguration()
-			try session.setCategory(self.category.rawValue, with: self.options)
-			try session.setMode(self.mode.rawValue)
+			try session.setCategory(self.category, with: self.options)
+			try session.setMode(self.mode)
 			try session.setPreferredSampleRate(44100)
 			try session.setPreferredInputNumberOfChannels(2)
 			session.unlockForConfiguration()
@@ -143,6 +151,11 @@ extension RTCHardware {
 
 		centre.addObserver(self, selector: #selector(accessoryConnected(notification:)), name:NSNotification.Name.EAAccessoryDidConnect, object: nil)
 		centre.addObserver(self, selector: #selector(accessoryDisconnected(notification:)), name:NSNotification.Name.EAAccessoryDidDisconnect, object: nil)
+	}
+
+	fileprivate func setupAccessories() {
+		logger.log("RTCHardware.setupAccessories()")
+
 		let accessoryManager = EAAccessoryManager.shared()
 		accessoryManager.registerForLocalNotifications()
 	}
@@ -152,6 +165,13 @@ extension RTCHardware {
 
 		let centre = NotificationCenter.default
 		centre.removeObserver(self)
+
+		let accessoryManager = EAAccessoryManager.shared()
+		accessoryManager.unregisterForLocalNotifications()
+	}
+
+	fileprivate func terminateAccessories() {
+		logger.log("RTCHardware.terminateAccessories()")
 
 		let accessoryManager = EAAccessoryManager.shared()
 		accessoryManager.unregisterForLocalNotifications()
